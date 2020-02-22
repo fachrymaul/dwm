@@ -45,6 +45,13 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod1Mask
+#define SUPKEY Mod4Mask
+#define MUTE     0x1008ff12
+#define VOLUMEDN 0x1008ff11
+#define VOLUMEUP 0x1008ff13
+#define BRIGHTDN 0x1008ff03
+#define BRIGHTUP 0x1008ff02
+#define MICMUTE  0x1008ffb2
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -57,12 +64,27 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
+static const char *lockcmd[]  = { "slock", NULL };
+static const char *volupcmd[]  = { "pactl", "set-sink-volume", "0", "+10%", NULL };
+static const char *voldncmd[]  = { "pactl", "set-sink-volume", "0", "-10%", NULL };
+static const char *mutecmd[]  = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *mutemiccmd[]  = { "pactl", "set-source-mute", "1", "toggle", NULL };
+static const char *brightupcmd[]  = { "xbacklight", "+", "5", NULL };
+static const char *brightdncmd[]  = { "xbacklight", "-", "5", NULL };
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ 0,                            MUTE,      spawn,          {.v = mutecmd} },
+	{ 0,                            MICMUTE,   spawn,          {.v = mutemiccmd} },
+	{ 0,                            VOLUMEUP,  spawn,          {.v = volupcmd} },
+	{ 0,                            VOLUMEDN,  spawn,          {.v = voldncmd} },
+	{ 0,                            BRIGHTUP,  spawn,          {.v = brightupcmd} },
+	{ 0,                            BRIGHTDN,  spawn,          {.v = brightdncmd} },
+	{ SUPKEY,                       XK_l,      spawn,          {.v = lockcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
