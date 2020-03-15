@@ -45,8 +45,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
-#define SUPKEY Mod4Mask
+#define MODKEY Mod4Mask
 #define MUTE     0x1008ff12
 #define VOLUMEDN 0x1008ff11
 #define VOLUMEUP 0x1008ff13
@@ -85,7 +84,7 @@ static Key keys[] = {
 	{ 0,                            VOLUMEDN,  spawn,          {.v = voldncmd} },
 	{ 0,                            BRIGHTUP,  spawn,          {.v = brightupcmd} },
 	{ 0,                            BRIGHTDN,  spawn,          {.v = brightdncmd} },
-	{ SUPKEY,                       XK_l,      spawn,          {.v = lockcmd} },
+	{ MODKEY,                       XK_Caps_Lock,      spawn,          {.v = lockcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -111,8 +110,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
+	TAGKEYS(                        XK_4,                      3) TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
