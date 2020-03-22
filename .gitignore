@@ -56,3 +56,4 @@ dwm
 
 config.h
 *.orig
+tags
