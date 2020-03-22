@@ -63,21 +63,26 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
-static const char *volupcmd[]  = { "pactl", "set-sink-volume", "0", "+10%", NULL };
-static const char *voldncmd[]  = { "pactl", "set-sink-volume", "0", "-10%", NULL };
-static const char *mutecmd[]  = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *volupcmd[]  = { "amixer", "sset", "Master", "10%+", NULL };
+static const char *voldncmd[]  = { "amixer", "sset", "Master", "10%-", NULL };
+static const char *mutecmd[]  = { "amixer", "sset", "Master", "toggle", NULL };
 static const char *mutemiccmd[]  = { "pactl", "set-source-mute", "1", "toggle", NULL };
 static const char *brightupcmd[]  = { "xbacklight", "+", "5", NULL };
 static const char *brightdncmd[]  = { "xbacklight", "-", "5", NULL };
+static const char *usKeyboard[] = { "setxkbmap", "us", NULL};
+static const char *dvKeyboard[] = { "setxkbmap", "dvorak", NULL};
+
 
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Tab,    spawn,          {.v = dvKeyboard } },
+	{ MODKEY|ControlMask,           XK_Tab,    spawn,          {.v = usKeyboard } },
 	{ 0,                            MUTE,      spawn,          {.v = mutecmd} },
 	{ 0,                            MICMUTE,   spawn,          {.v = mutemiccmd} },
 	{ 0,                            VOLUMEUP,  spawn,          {.v = volupcmd} },
@@ -110,7 +115,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3) TAGKEYS(                        XK_5,                      4)
+	TAGKEYS(                        XK_4,                      3) 
+        TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
