@@ -66,12 +66,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
-static const char *volupcmd[]  = { "amixer", "sset", "Master", "10%+", NULL };
-static const char *voldncmd[]  = { "amixer", "sset", "Master", "10%-", NULL };
 static const char *mutecmd[]  = { "amixer", "sset", "Master", "toggle", NULL };
 static const char *mutemiccmd[]  = { "pactl", "set-source-mute", "1", "toggle", NULL };
-static const char *brightupcmd[]  = { "xbacklight", "+", "5", NULL };
-static const char *brightdncmd[]  = { "xbacklight", "-", "5", NULL };
 static const char *usKeyboard[] = { "setxkbmap", "us", NULL};
 static const char *dvKeyboard[] = { "setxkbmap", "dvorak", NULL};
 
@@ -85,10 +81,6 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Tab,    spawn,          {.v = usKeyboard } },
 	{ 0,                            MUTE,      spawn,          {.v = mutecmd} },
 	{ 0,                            MICMUTE,   spawn,          {.v = mutemiccmd} },
-	{ 0,                            VOLUMEUP,  spawn,          {.v = volupcmd} },
-	{ 0,                            VOLUMEDN,  spawn,          {.v = voldncmd} },
-	{ 0,                            BRIGHTUP,  spawn,          {.v = brightupcmd} },
-	{ 0,                            BRIGHTDN,  spawn,          {.v = brightdncmd} },
 	{ MODKEY,                       XK_Caps_Lock,      spawn,          {.v = lockcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
