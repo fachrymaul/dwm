@@ -54,6 +54,5 @@ dkms.conf
 # executable file
 dwm
 
-config.h
 *.orig
 tags
