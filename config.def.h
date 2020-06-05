@@ -63,10 +63,12 @@ static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *switchKeyboard[] = { "keyboard-toggle", NULL};
 static const char *swapescape[] = { "swapesc", NULL};
+static const char *runfirefox[] = { "firefox", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = runfirefox } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd} },
 	{ MODKEY|ShiftMask,             XK_Tab,    spawn,          {.v = switchKeyboard } },
