@@ -7,16 +7,31 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrains Mono Nerd Font:size=12" };
-static const char dmenufont[]       ="JetBrains Mono Nerd Font:size=12";
+static const char dmenufont[]       = "JetBrains Mono Nerd Font:size=12";
+static const char col_base03[]      = "#002b36";
+static const char col_base02[]      = "#073642";
+static const char col_base01[]      = "#586e75";
+static const char col_base00[]      = "#657b83";
+static const char col_base0[]       = "#839496";
+static const char col_base1[]       = "#93a1a1";
+static const char col_base2[]       = "#eee8d5";
+static const char col_base3[]       = "#fdf6e3";
+static const char col_yellow[]      = "#b58900";
+static const char col_orange[]      = "#cb4b16";
+static const char col_red[]         = "#dc322f";
+static const char col_magenta[]     = "#d33682";
+static const char col_violet[]      = "#6c71c4";
+static const char col_blue[]        = "#268bd2";
+static const char col_cyan[]        = "#2aa198";
+static const char col_green[]       = "#859900";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_base0, col_base03,col_green },
+	[SchemeSel]  = { col_base1, col_base02,col_blue  },
 };
 
 /* tagging */
@@ -30,7 +45,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "steam",    NULL,       NULL,       1 << 8,       1,           -1 },
+	{ "Steam",    NULL,       NULL,       1 << 8,       1,           -1 },
 };
 
 /* layout(s) */
@@ -58,7 +73,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base03, "-nf", col_base0, "-sb", col_base3, "-sf", col_base00, NULL };
 static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *switchKeyboard[] = { "keyboard-toggle", NULL};
