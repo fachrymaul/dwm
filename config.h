@@ -1,10 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int borderpx  = 1;       /* border pixel of windows */
+static const unsigned int gappx     = 25;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrains Mono Nerd Font:size=12" };
@@ -31,8 +31,8 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_base0, col_base03,col_green },
-	[SchemeSel]  = { col_base1, col_base02,col_blue  },
+	[SchemeNorm] = { col_base0, col_base03,col_base03 },
+	[SchemeSel]  = { col_base1, col_base02,col_base3  },
 };
 
 /* tagging */
@@ -48,10 +48,12 @@ static const Rule rules[] = {
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,          -1,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         1,          0,           1,        -1 }, /* xev */
-	{ "Spotify", NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
-	{ "vlc",     NULL,     NULL,           0,         0,          0,          -1,        -1 },
+	{ "Spotify", NULL,     NULL,           1 << 6,    0,          0,           0,        -1 },
+	{ "vlc",     NULL,     NULL,           0,         0,          0,           0,        -1 },
 	{ "Steam",   NULL,     NULL,           1 << 8,    1,         -1,           0,        -1 },
 	{ "Wine",    NULL,     NULL,           1 << 7,    1,         -1,           0,        -1 },
+	{ "Microsoft Teams - Preview",    
+                     NULL,     NULL,           0,         1,         -1,           0,        -1 },
 };
 
 /* layout(s) */
@@ -80,16 +82,16 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base03, "-nf", col_base0, "-sb", col_base3, "-sf", col_base00, NULL };
-static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *switchKeyboard[] = { "keyboard-toggle", NULL};
 static const char *swapescape[] = { "swapesc", NULL};
-static const char *runfirefox[] = { "firefox", NULL};
+static const char *runbrowser[] = { "tabbed", "surf", "-e", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = runfirefox } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = runbrowser } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd} },
 	{ MODKEY|ShiftMask,             XK_Tab,    spawn,          {.v = switchKeyboard } },
