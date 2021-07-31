@@ -31,8 +31,8 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_base0, col_base03,col_base03 },
-	[SchemeSel]  = { col_base1, col_base02,col_base3  },
+	[SchemeNorm] = { col_base00, col_base3,col_base3 },
+	[SchemeSel]  = { col_base01, col_base2,col_base03  },
 };
 
 /* tagging */
@@ -81,7 +81,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base03, "-nf", col_base0, "-sb", col_base3, "-sf", col_base00, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base3, "-nf", col_base00, "-sb", col_green, "-sf", col_base2, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *switchKeyboard[] = { "keyboard-toggle", NULL};
