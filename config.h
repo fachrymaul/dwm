@@ -1,38 +1,25 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;       /* border pixel of windows */
-static const unsigned int gappx     = 25;        /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrains Mono Nerd Font:size=12" };
-static const char dmenufont[]       = "JetBrains Mono Nerd Font:size=12";
-static const char col_base03[]      = "#002b36";
-static const char col_base02[]      = "#073642";
-static const char col_base01[]      = "#586e75";
-static const char col_base00[]      = "#657b83";
-static const char col_base0[]       = "#839496";
-static const char col_base1[]       = "#93a1a1";
-static const char col_base2[]       = "#eee8d5";
-static const char col_base3[]       = "#fdf6e3";
-static const char col_yellow[]      = "#b58900";
-static const char col_orange[]      = "#cb4b16";
-static const char col_red[]         = "#dc322f";
-static const char col_magenta[]     = "#d33682";
-static const char col_violet[]      = "#6c71c4";
-static const char col_blue[]        = "#268bd2";
-static const char col_cyan[]        = "#2aa198";
-static const char col_green[]       = "#859900";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_base00, col_base3,col_base3 },
-	[SchemeSel]  = { col_base01, col_base2,col_base03  },
+static unsigned int borderpx     = 1;        /* border pixel of windows */
+static const unsigned int gappx  = 25;        /* gaps between windows */
+static unsigned int snap         = 32;       /* snap pixel */
+static const int swallowfloating = 1;        /* 1 means swallow floating windows by default */
+static int showbar               = 1;        /* 0 means no bar */
+static int topbar                = 1;        /* 0 means bottom bar */
+static char font[]               = "monospace:size=10";
+static char dmenufont[]          = "monospace:size=10";
+static const char *fonts[]       = { font };
+static char normbgcolor[]        = "#222222";
+static char normbordercolor[]    = "#444444";
+static char normfgcolor[]        = "#bbbbbb";
+static char selfgcolor[]         = "#eeeeee";
+static char selbordercolor[]     = "#005577";
+static char selbgcolor[]         = "#005577";
+static char *colors[][3]         = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
 /* tagging */
@@ -57,9 +44,10 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static int nmaster     = 1;    /* number of clients in master area */
+static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -81,17 +69,38 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base3, "-nf", col_base00, "-sb", col_green, "-sf", col_base2, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *switchKeyboard[] = { "keyboard-toggle", NULL};
 static const char *swapescape[] = { "swapesc", NULL};
-static const char *runbrowser[] = { "tabbed", "surf", "-e", NULL};
+static const char *runfirefox[] = { "firefox", NULL};
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+		{ "font",               STRING,  &font },
+		{ "dmenufont",          STRING,  &dmenufont },
+		{ "normbgcolor",        STRING,  &normbgcolor },
+		{ "normbordercolor",    STRING,  &normbordercolor },
+		{ "normfgcolor",        STRING,  &normfgcolor },
+		{ "selbgcolor",         STRING,  &selbgcolor },
+		{ "selbordercolor",     STRING,  &selbordercolor },
+		{ "selfgcolor",         STRING,  &selfgcolor },
+		{ "borderpx",          	INTEGER, &borderpx },
+		{ "snap",          		INTEGER, &snap },
+		{ "showbar",          	INTEGER, &showbar },
+		{ "topbar",          	INTEGER, &topbar },
+		{ "nmaster",          	INTEGER, &nmaster },
+		{ "resizehints",       	INTEGER, &resizehints },
+		{ "mfact",      	 	FLOAT,   &mfact },
+};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = runbrowser } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = runfirefox } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd} },
 	{ MODKEY|ShiftMask,             XK_Tab,    spawn,          {.v = switchKeyboard } },
