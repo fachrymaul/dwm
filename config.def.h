@@ -69,12 +69,12 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *lockcmd[]  = { "slock", NULL };
+static const char *lockcmd[]        = { "slock", NULL };
+static const char *dmenucmd[]       = { "dmenu_run", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *termcmd[]        = { "st", NULL };
 static const char *switchKeyboard[] = { "keyboard-toggle", NULL};
-static const char *swapescape[] = { "swapesc", NULL};
-static const char *runfirefox[] = { "firefox", NULL};
+static const char *swapescape[]     = { "swapesc", NULL};
+static const char *runfirefox[]     = { "firefox", NULL};
 
 /*
  * Xresources preferences to load at startup

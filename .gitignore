@@ -56,3 +56,6 @@ dwm
 
 *.orig
 tags
+
+.ccls-cache/
+compile_commands.json
